@@ -14,9 +14,10 @@ int main() {
         unsigned char in = USART_Receive();
 
         if (in >= '0' && in <= '9') {
-            cifra_input[cnt] = in - '0';
-            cnt++;
-            cnt %= 4;
+            if(cnt < 4){
+                cifra_input[cnt] = in - '0';
+                cnt++;
+            }
         }
         else if (in == '.' || in == ',') {
             if (cnt > 0 && dp == -1) {
