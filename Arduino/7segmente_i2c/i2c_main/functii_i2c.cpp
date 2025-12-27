@@ -1,8 +1,10 @@
 #include "functii_i2c.h"
+#include "functii_uart.h"
+#include <avr/io.h>
 
 void setup_i2c(){
-    TWSR |= (1<<TWPS0);
-    TWBR |= (1<<TWBR4) | (1<<TWBR1);
+    TWSR |= 0x00;
+    TWBR = 72;
     TWCR |= (1<<TWEN);
 }
 
@@ -29,6 +31,12 @@ void send_i2c(unsigned int address, unsigned int reg, unsigned int data){
     //check value of TWI STATUS Register. Mask prescaler bits. If status different from MT_SLA_ACK from ERROR
     if ((TWSR & 0xF8) != MT_SLA_ACK)
         ERROR("ADDRESS ERR\n");
+
+    TWDR = reg;
+    TWCR = (1<<TWINT)|(1<<TWEN);
+    while (!(TWCR & (1<<TWINT)));
+    if ((TWSR & 0xF8) != MT_DATA_ACK)
+        ERROR("REG ERR");
 
     USART_Transmit_String("Load data\n");
     //Load data into twdr register. clear twint bit in twcr to start transmission of data

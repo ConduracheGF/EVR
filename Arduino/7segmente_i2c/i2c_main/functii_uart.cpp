@@ -1,4 +1,5 @@
 #include "functii_uart.h"
+#include <avr/io.h>
 
 void USART_Init(unsigned int ubrr){
   //setare high
@@ -31,6 +32,7 @@ void USART_Transmit_String(const char* string){
     USART_Transmit(string[i]);
   }
   USART_Transmit('\r');
+  USART_Transmit('\n');
 }
 
 void ERROR(char err[]){
