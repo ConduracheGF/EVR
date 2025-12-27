@@ -1,6 +1,8 @@
 #ifndef FUNCTII_UART_H_
 #define FUNCTII_UART_H_
 
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -17,6 +19,10 @@ void USART_Transmit(unsigned char data);
 unsigned char USART_Receive(void);
 
 void USART_Transmit_String(const char* string);
+
+void USART_Transmit_Int(uint16_t string);
+
+void USART_Transmit_Voltaj(uint16_t volt);
 
 void ERROR(char err[]);
 

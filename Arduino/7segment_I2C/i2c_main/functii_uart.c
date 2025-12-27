@@ -35,6 +35,36 @@ void USART_Transmit_String(const char* string){
   USART_Transmit('\n');
 }
 
+void USART_Transmit_Int(uint16_t string){
+  char buff[32];
+  int i = 0;
+  
+  if (string==0){
+    USART_Transmit('0');
+    return;
+  }
+  while(string){
+    buff[i++] = ((string % 10) + '0');
+    string/=10;
+  }
+  while(i--){
+    USART_Transmit(buff[i]);
+  }
+}
+
+void USART_Transmit_Voltaj(uint16_t volt){
+    uint16_t volt_frac = 0;
+
+    if(volt)
+      USART_Transmit_Int(volt);
+    else
+      USART_Transmit_Int(0);
+    USART_Transmit('.');
+    
+    if(volt_frac < 100) USART_Transmit('0');
+    USART_Transmit_Int(volt_frac);
+}
+
 void ERROR(char err[]){
   USART_Transmit_String(err);
 }

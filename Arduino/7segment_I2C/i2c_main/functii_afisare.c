@@ -1,6 +1,8 @@
 #include "functii_uart.h"
 #include "functii_afisare.h"
 #include "functii_i2c.h"
+#include <util/delay.h>
+
 
 void setup_7_segm(){
   send_i2c(0x00, 0x09, 0xFF);
@@ -29,5 +31,23 @@ void afisare(int cifra[]) {
     // trimite cifrele catre AS1115
     for (int i = 0; i < 4; i++) {
         send_i2c(0x00, i + 1, cifra[3-i]);
+        //_delay_ms(2);
     }
+}
+
+void afisare_tensiune(uint16_t mV) {
+  int cifra[4] = {0};
+
+  if (mV > 5000) mV = 5000;
+
+  uint16_t val = (uint32_t)mV * 1000 / 1000;
+
+  cifra[0] = (val/1000)%10;
+  cifra[1] = (val/100)%10;
+  cifra[2] = (val/10)%10;
+  cifra[3] = val%10;
+
+  cifra[0] |= 0x80;  
+
+  afisare(cifra);
 }

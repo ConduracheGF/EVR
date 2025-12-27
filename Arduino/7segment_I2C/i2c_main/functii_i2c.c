@@ -9,7 +9,7 @@ void setup_i2c(){
 }
 
 void send_i2c(unsigned int address, unsigned int reg, unsigned int data){
-    USART_Transmit_String("Start condition\n");
+    //USART_Transmit_String("Start condition\n");
     //send start condition
     TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
 
@@ -20,7 +20,7 @@ void send_i2c(unsigned int address, unsigned int reg, unsigned int data){
     if ((TWSR & 0xf8) != START)
         ERROR("START ERR\n");
     
-    USART_Transmit_String("Load address\n");
+    //USART_Transmit_String("Load address\n");
     //load address into twdr register. clear twint bit in twcr to start transmission of address
     TWDR = address << 1;
     TWCR = (1<<TWINT) | (1<<TWEN);
@@ -38,7 +38,7 @@ void send_i2c(unsigned int address, unsigned int reg, unsigned int data){
     if ((TWSR & 0xF8) != MT_DATA_ACK)
         ERROR("REG ERR");
 
-    USART_Transmit_String("Load data\n");
+    //USART_Transmit_String("Load data\n");
     //Load data into twdr register. clear twint bit in twcr to start transmission of data
     TWDR = data;
     TWCR = (1<<TWINT) | (1<<TWEN);
@@ -52,5 +52,5 @@ void send_i2c(unsigned int address, unsigned int reg, unsigned int data){
     
     //transmit stop condition
     TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
-    USART_Transmit_String("Stop condition\n");
+    //USART_Transmit_String("Stop condition\n");
 }
