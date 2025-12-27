@@ -1,6 +1,10 @@
 #ifndef FUNCTII_UART_H_
 #define FUNCTII_UART_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define FOSC 16000000
 #define FSCL 100000
 #define BAUD_RATE 9600
@@ -15,5 +19,9 @@ unsigned char USART_Receive(void);
 void USART_Transmit_String(const char* string);
 
 void ERROR(char err[]);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
