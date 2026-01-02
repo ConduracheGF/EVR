@@ -2,11 +2,13 @@
 #include "functii_uart.h"
 #include "functii_afisare.h"
 #include "functii_adc.h"
+#include "functii_plus.h"
 #include <util/delay.h>
 
 
 int main() {
     USART_Init(UBRR);
+    recover_bus_i2c();
     setup_i2c();
     setup_7_segm();
     ADC_Init();
@@ -19,6 +21,7 @@ int main() {
         USART_Transmit_String(" mV");
 
         afisare_tensiune(tensiune);
-        _delay_ms(2000);
+        //delay_secunde(1);
+        delay_milisecunde(200);
     }
 }

@@ -31,7 +31,6 @@ void afisare(int cifra[]) {
     // trimite cifrele catre AS1115
     for (int i = 0; i < 4; i++) {
         send_i2c(0x00, i + 1, cifra[3-i]);
-        //_delay_ms(2);
     }
 }
 
