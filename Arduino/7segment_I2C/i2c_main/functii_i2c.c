@@ -96,9 +96,6 @@ uint8_t wait_twint_i2c(void) {
 }
 
 uint8_t bus_stuck_i2c(){
-    //se ajusteaza ddrd si portd ul pentru modificari din mers
-    DDRD &= ~((1 << PD1)|(1 << PD0));
-    PORTD |= (1 << PD1)|(1 << PD0);
     //verificare daca sda se duce pe low de la slave
     if(!(PIND & (1 << PD1)))
         return 1; //sda low duce in blocaj
@@ -117,13 +114,14 @@ void recover_bus_i2c(){
     
     for (uint8_t i=0; i<10; i++){
         PORTD &= ~(1 << PD0);
-        delay_microsecunde(5);
+        //delay_microsecunde(5);
         PORTD |= (1 << PD0);
-        delay_microsecunde(5);
+        //delay_microsecunde(5);
     }
 
     PORTD |= (1 << PD0);
-    delay_microsecunde(5);
+    //delay_microsecunde(5);
+    //lipsa delayurilor s-a testat prin rularea codului si nu altereaza progresul executiei sale
 
     setup_i2c();
 }
