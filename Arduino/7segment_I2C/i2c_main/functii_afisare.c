@@ -6,21 +6,27 @@
 
 void setup_7_segm(){
   send_i2c(0x00, 0x09, 0xFF);
-  USART_Transmit_String("1. BCD Decode!\n");
+  //USART_Transmit_String("1. BCD Decode!\n");
 
   send_i2c(0x00, 0x0A, 0x0F);
-  USART_Transmit_String("2. Intensity!\n");
+  //USART_Transmit_String("2. Intensity!\n");
 
   send_i2c(0x00, 0x0B, 0x03);
-  USART_Transmit_String("3. Initializarea unui digit!\n");
+  //USART_Transmit_String("3. Initializarea unui digit!\n");
 
   send_i2c(0x00, 0x0C, 0x01);
-  USART_Transmit_String("4. Normal Operation for Shutdown register!\n");
+  ///USART_Transmit_String("4. Normal Operation for Shutdown register!\n");
 
-  reset_7_segm();
+  //reset_7_segm();
 }
 
 void reset_7_segm(){
+  //shutdown
+  send_i2c(0x00, 0x0C, 0x00);
+  //normal operation
+  send_i2c(0x00, 0x0C, 0x01);
+
+  //digit0->digit3
   send_i2c(0x00,0x01,0);
   send_i2c(0x00,0x02,0);
   send_i2c(0x00,0x03,0);
