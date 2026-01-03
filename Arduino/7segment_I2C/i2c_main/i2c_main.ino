@@ -10,11 +10,19 @@ int main() {
     USART_Init(UBRR);
     recover_bus_i2c();
     setup_i2c();
+    setup_7_segm();
+    reset_7_segm();
     ADC_Init();
 
     uint16_t flag = 0;
 
     while (1) {
+        
+        recover_bus_i2c();
+        setup_i2c();
+        setup_7_segm();
+
+        /*
         if(bus_stuck_i2c()){
             USART_Transmit_String("BUS RECOVERY\n");
             recover_bus_i2c();
@@ -27,7 +35,7 @@ int main() {
             setup_7_segm();
             flag = 0;
         }
-
+        */
         uint16_t adc = ADC_Read();
         uint16_t tensiune = (uint32_t)adc * 5000UL / 1023UL;
         
@@ -35,10 +43,10 @@ int main() {
         USART_Transmit_Int(tensiune);
         USART_Transmit_String(" mV");
 
-        if(!bus_stuck_i2c()){
+        //if(!bus_stuck_i2c()){
             afisare_tensiune(tensiune);
-        }
+        //}
         delay_milisecunde(200);
-        flag++;
+        //flag++;
     }
 }
