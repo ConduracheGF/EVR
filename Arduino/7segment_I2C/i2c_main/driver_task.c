@@ -10,12 +10,13 @@ void driver_task(uint16_t tensiune){
       if(setup_7_segm() == SEND_SUCCESSFUL){
         driver_state = DRIVER_OK;
       }
-      else
-        USART_Transmit_String("INIT FAILED, retrying");
+      else{
+        driver_state = DRIVER_NOT_RESPONDING;
+      } 
       break;
     case DRIVER_OK:
       if(afisare_tensiune(tensiune) != SEND_SUCCESSFUL){
-        USART_Transmit_String("AFISARE FAILED");
+        driver_state = DRIVER_NOT_RESPONDING;
       }
       break;
     case DRIVER_NOT_RESPONDING:
