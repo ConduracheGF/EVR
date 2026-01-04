@@ -1,6 +1,8 @@
 #ifndef STATE_MACHINE_H_
 #define STATE_MACHINE_H_
 
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -12,8 +14,7 @@ typedef enum {
 
 typedef enum {
   DRIVER_OK,
-  DRIVER_NEEDS_INIT,
-  DRIVER_NOT_RESPONDING
+  DRIVER_NEEDS_INIT
 } driver_state_t;
 
 typedef enum {
@@ -23,6 +24,8 @@ typedef enum {
 
 extern i2c_bus_state_t i2c_bus_state;
 extern driver_state_t driver_state;
+
+void driver_task(uint16_t tensiune);
 
 #ifdef __cplusplus
 }

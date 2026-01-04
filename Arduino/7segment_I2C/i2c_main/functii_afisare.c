@@ -1,6 +1,6 @@
 #include "functii_afisare.h"
 #include "functii_i2c.h"
-#include "functii_plus.h"
+#include "functii_timer.h"
 
 send_status_t setup_7_segm(){
   if(send_i2c(0x00, 0x09, 0xFF) != SEND_SUCCESSFUL){

@@ -7,8 +7,9 @@
 extern "C" {
 #endif
 
-void init_timer1();
-void main_timer1();
+void delay_secunde(uint16_t time);
+void delay_milisecunde(uint32_t time);
+void delay_microsecunde(uint16_t time);
 
 #ifdef __cplusplus
 }
