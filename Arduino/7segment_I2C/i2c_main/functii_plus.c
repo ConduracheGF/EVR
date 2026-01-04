@@ -1,7 +1,7 @@
 #include "functii_plus.h"
 
 void delay_secunde(uint16_t time){
-  volatile uint32_t i;
+    volatile uint32_t i;
 
     while (time--) {
         i = 0;

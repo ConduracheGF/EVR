@@ -19,13 +19,6 @@ void USART_Transmit(unsigned char data){
   UDR0 = data;
 }
 
-unsigned char USART_Receive(void){
-  //date primite
-  while(!(UCSR0A & (1<<RXC0))){}
-  //caracter primit
-  return UDR0;
-}
-
 void USART_Transmit_String(const char* string){
   //transmitere caracter cu caracter
   for(int i=0; string[i]!='\0'; i++){
@@ -50,22 +43,5 @@ void USART_Transmit_Int(uint16_t string){
   while(i--){
     USART_Transmit(buff[i]);
   }
-}
-
-void USART_Transmit_Voltaj(uint16_t volt){
-    uint16_t volt_frac = 0;
-
-    if(volt)
-      USART_Transmit_Int(volt);
-    else
-      USART_Transmit_Int(0);
-    USART_Transmit('.');
-    
-    if(volt_frac < 100) USART_Transmit('0');
-    USART_Transmit_Int(volt_frac);
-}
-
-void ERROR(char err[]){
-  USART_Transmit_String(err);
 }
 

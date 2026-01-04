@@ -2,6 +2,7 @@
 #define FUNCTII_I2C_H_
 
 #include <stdint.h>
+#include "state_machine.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,10 +14,7 @@ extern "C" {
 #define TIMEOUT 50000
 
 void setup_i2c();
-void send_i2c(unsigned int address, unsigned int reg, unsigned int data);
-uint8_t wait_twint_i2c();
-uint8_t bus_stuck_i2c();
-void recover_bus_i2c();
+send_status_t send_i2c(unsigned int address, unsigned int reg, unsigned int data);
 
 #ifdef __cplusplus
 }
