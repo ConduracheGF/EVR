@@ -6,22 +6,22 @@ send_status_t setup_7_segm(){
   if(send_i2c(0x00, 0x09, 0xFF) != SEND_SUCCESSFUL){
     return SEND_NOT_SUCCESSFUL;
   }
-  delay_milisecunde(5);
+  //delay_milisecunde(5);
   
   if(send_i2c(0x00, 0x0A, 0x0F) != SEND_SUCCESSFUL){
     return SEND_NOT_SUCCESSFUL;
   }
-  delay_milisecunde(5);
+  //delay_milisecunde(5);
   
   if(send_i2c(0x00, 0x0B, 0x03) != SEND_SUCCESSFUL){
     return SEND_NOT_SUCCESSFUL;
   }
-  delay_milisecunde(5);
+  //delay_milisecunde(5);
   
   if(send_i2c(0x00, 0x0C, 0x01) != SEND_SUCCESSFUL){
     return SEND_NOT_SUCCESSFUL;
   }
-  delay_milisecunde(5);
+  //delay_milisecunde(5);
   
   return SEND_SUCCESSFUL;
 }
@@ -32,7 +32,7 @@ static send_status_t afisare(int cifra[]) {
       if(send_i2c(0x00, i + 1, cifra[3-i]) != SEND_SUCCESSFUL){
         return SEND_NOT_SUCCESSFUL;
       }
-      delay_milisecunde(2);
+      //delay_milisecunde(2);
     }
     return SEND_SUCCESSFUL;
 }

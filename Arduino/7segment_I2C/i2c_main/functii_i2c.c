@@ -8,6 +8,16 @@ void setup_i2c(){
     TWCR = (1<<TWEN);
 }
 
+static uint8_t wait_twsto(){
+    uint32_t timeout = TIMEOUT;
+    while (TWCR & (1<<TWSTO)){
+        if (--timeout == 0){
+            return 0;
+        }
+    }
+    return 1;
+}
+
 static uint8_t wait_twint(){
     uint32_t timeout = TIMEOUT;
     while(!(TWCR & (1 << TWINT))){
@@ -76,6 +86,10 @@ send_status_t send_i2c(unsigned int address, unsigned int reg, unsigned int data
 
     //stop
     TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
+    if(!wait_twsto()){
+        i2c_bus_state = I2C_STUCK;
+        return SEND_NOT_SUCCESSFUL;
+    }
 
     i2c_bus_state = I2C_OK;
     return SEND_SUCCESSFUL;
