@@ -23,13 +23,17 @@ extern "C" {
 * 2) needed interfaces from external units
 * 3) internal and external interfaces from this unit
 ==================================================================================================*/
+#include "Dio.h"
 #include "Mcu.h"
 #include "Port.h"
-#include "Dio.h"
+#include "Platform.h"
+#include "CDD_I2c.h"
 
 #include "check_example.h"
 
 #include "SevenSegments.h"
+#include "AS1115.h"
+
 
 /*==================================================================================================
 *                          LOCAL TYPEDEFS (STRUCTURES, UNIONS, ENUMS)
@@ -93,9 +97,6 @@ void TestDelay(uint32 delay)
 */
 int main(void)
 {
-    uint8 count = 0U;
-    static SegmentsMonitoredValue_t SegmentsMonitoredValue = {0,0,0};
-
     /* Initialize the Mcu driver */
 #if (MCU_PRECOMPILE_SUPPORT == STD_ON)
     Mcu_Init(NULL_PTR);
@@ -117,24 +118,11 @@ int main(void)
 
     /* Initialize all pins using the Port driver */
     Port_Init(NULL_PTR);
+    Platform_Init(NULL_PTR);
+    I2c_Init(NULL_PTR);
     Segments_Init();
     Segments_Test();
-    while (count++ < 10)
-    {
-        /* Get input level of channels */
-        Dio_WriteChannel(DioConf_DioChannel_DioChannel_0, STD_HIGH);
-        TestDelay(2000000);
 
-        Dio_WriteChannel(DioConf_DioChannel_DioChannel_0, STD_LOW);
-        TestDelay(2000000);
-        Segments_Test();
-        Segments_Set(SegmentsMonitoredValue, 12);
-        Segments_Update();
-    }
-
-    Exit_Example(TRUE);
-
-    return (0U);
 }
 
 

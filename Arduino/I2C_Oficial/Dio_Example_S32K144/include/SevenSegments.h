@@ -19,6 +19,23 @@ extern "C"{
 *                          LOCAL TYPEDEFS (STRUCTURES, UNIONS, ENUMS)
 ==================================================================================================*/
 typedef enum{
+    DIGIT_0 = 0U,
+    DIGIT_1 = 1U,
+    DIGIT_2 = 2U,
+    DIGIT_3 = 3U,
+    DIGIT_4 = 4U,
+    DIGIT_5 = 5U,
+    DIGIT_6 = 6U,
+    DIGIT_7 = 7U
+}SegmentsDigits_t;
+
+typedef struct{
+    SegmentsDigits_t DigitGroup_Speed[3];
+    SegmentsDigits_t DigitGroup_Battery[3];
+    SegmentsDigits_t DigitGroup_Temperature[2];
+}SegmentsGroups_t;
+
+typedef enum{
     SPEED_KMH,
     BATTERY_PERCENTAGE,
     TEMPERATURE
@@ -65,7 +82,7 @@ typedef enum{
 
 void Segments_Init(void);
 void Segments_Test(void);
-void Segments_Set(SegmentsMonitoredValue_t SelectedMonitor, int16_t Value);
+void Segments_Set(SegmentsMonitoredValue_t SelectedMonitor, uint16_t Value);
 void Segments_Update(void);
 
 #ifdef __cplusplus
